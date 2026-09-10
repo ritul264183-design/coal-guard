@@ -1,0 +1,909 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>COAL-GUARD AI | Secure Access</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background:
+                radial-gradient(circle at 20% 20%, rgba(255, 170, 0, 0.12), transparent 30%),
+                radial-gradient(circle at 80% 80%, rgba(255, 110, 0, 0.08), transparent 30%),
+                #070707;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            color: white;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 440px;
+            padding: 20px;
+        }
+
+        .login-card {
+            background: rgba(18, 18, 18, 0.97);
+
+            border: 1px solid rgba(255, 170, 0, 0.35);
+
+            border-radius: 18px;
+
+            padding: 36px 32px;
+
+            box-shadow:
+                0 0 40px rgba(0, 0, 0, 0.7),
+                0 0 30px rgba(255, 170, 0, 0.08);
+        }
+
+        .logo {
+            width: 72px;
+            height: 72px;
+
+            margin: 0 auto 16px;
+
+            border-radius: 50%;
+
+            background: linear-gradient(
+                135deg,
+                #ffb300,
+                #ff6a00
+            );
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-size: 32px;
+
+            box-shadow:
+                0 0 25px rgba(255, 170, 0, 0.3);
+        }
+
+        h1 {
+            text-align: center;
+
+            font-size: 25px;
+
+            letter-spacing: 2px;
+
+            margin-bottom: 7px;
+        }
+
+        .subtitle {
+            text-align: center;
+
+            color: #999;
+
+            font-size: 13px;
+
+            margin-bottom: 25px;
+        }
+
+        .system-status {
+            text-align: center;
+
+            color: #7dff7d;
+
+            font-size: 11px;
+
+            margin-bottom: 22px;
+
+            letter-spacing: 1px;
+        }
+
+        .input-group {
+            margin-bottom: 16px;
+        }
+
+        label {
+            display: block;
+
+            font-size: 12px;
+
+            color: #bbb;
+
+            margin-bottom: 7px;
+
+            letter-spacing: 0.5px;
+        }
+
+        input {
+            width: 100%;
+
+            padding: 13px 14px;
+
+            border-radius: 9px;
+
+            border: 1px solid #333;
+
+            outline: none;
+
+            background: #0d0d0d;
+
+            color: white;
+
+            font-size: 14px;
+
+            transition: 0.2s;
+        }
+
+        input:focus {
+            border-color: #ffab00;
+
+            box-shadow:
+                0 0 10px rgba(255, 171, 0, 0.15);
+        }
+
+        .main-btn {
+            width: 100%;
+
+            margin-top: 5px;
+
+            padding: 14px;
+
+            border: none;
+
+            border-radius: 9px;
+
+            cursor: pointer;
+
+            color: #111;
+
+            font-weight: bold;
+
+            font-size: 14px;
+
+            letter-spacing: 1px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #ffb300,
+                    #ff7800
+                );
+
+            transition: 0.2s;
+        }
+
+        .main-btn:hover {
+            transform: translateY(-1px);
+
+            box-shadow:
+                0 8px 25px rgba(255, 145, 0, 0.2);
+        }
+
+        .switch {
+            text-align: center;
+
+            margin-top: 20px;
+
+            color: #777;
+
+            font-size: 12px;
+        }
+
+        .switch button {
+            border: none;
+
+            background: none;
+
+            color: #ffab00;
+
+            cursor: pointer;
+
+            font-weight: bold;
+
+            font-size: 12px;
+        }
+
+        .switch button:hover {
+            text-decoration: underline;
+        }
+
+        .message {
+            display: none;
+
+            margin-top: 14px;
+
+            padding: 10px;
+
+            border-radius: 7px;
+
+            text-align: center;
+
+            font-size: 12px;
+        }
+
+        .error {
+            background: rgba(255, 50, 50, 0.1);
+
+            border: 1px solid rgba(255, 50, 50, 0.3);
+
+            color: #ff7070;
+        }
+
+        .success {
+            background: rgba(50, 255, 100, 0.08);
+
+            border: 1px solid rgba(50, 255, 100, 0.25);
+
+            color: #70ff90;
+        }
+
+        .loading {
+            display: none;
+
+            text-align: center;
+
+            margin-top: 15px;
+
+            color: #ffb300;
+
+            font-size: 12px;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .footer {
+            text-align: center;
+
+            margin-top: 22px;
+
+            color: #666;
+
+            font-size: 10px;
+
+            line-height: 1.6;
+        }
+
+        .footer span {
+            color: #ffab00;
+        }
+
+        @media (max-width: 480px) {
+
+            .login-card {
+                padding: 30px 22px;
+            }
+
+            h1 {
+                font-size: 22px;
+            }
+        }
+    </style>
+</head>
+
+
+<body>
+
+<div class="container">
+
+    <div class="login-card">
+
+        <div class="logo">
+            ⛑
+        </div>
+
+
+        <h1>COAL-GUARD AI</h1>
+
+        <div class="subtitle">
+            Smart Coal Mine Governance & Safety System
+        </div>
+
+        <div class="system-status">
+            ● SECURE SYSTEM ONLINE
+        </div>
+
+
+
+        <!-- ========================= -->
+        <!-- LOGIN FORM -->
+        <!-- ========================= -->
+
+        <div id="loginSection">
+
+            <form id="loginForm">
+
+                <div class="input-group">
+
+                    <label for="loginUsername">
+                        USERNAME / EMAIL
+                    </label>
+
+                    <input
+                        type="text"
+                        id="loginUsername"
+                        placeholder="Enter your username"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="input-group">
+
+                    <label for="loginPassword">
+                        PASSWORD
+                    </label>
+
+                    <input
+                        type="password"
+                        id="loginPassword"
+                        placeholder="Enter your password"
+                        required
+                    >
+
+                </div>
+
+
+                <button
+                    type="submit"
+                    class="main-btn"
+                >
+                    SECURE LOGIN
+                </button>
+
+            </form>
+
+
+            <div
+                id="loginError"
+                class="message error"
+            >
+                Invalid username or password.
+            </div>
+
+
+            <div
+                id="loginLoading"
+                class="loading"
+            >
+                AUTHENTICATING... PLEASE WAIT
+            </div>
+
+
+            <div class="switch">
+
+                Don't have an account?
+
+                <button
+                    type="button"
+                    onclick="showCreateAccount()"
+                >
+                    Create Account
+                </button>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- ========================= -->
+        <!-- CREATE ACCOUNT FORM -->
+        <!-- ========================= -->
+
+        <div
+            id="createSection"
+            class="hidden"
+        >
+
+            <form id="createForm">
+
+
+                <div class="input-group">
+
+                    <label for="fullName">
+                        FULL NAME
+                    </label>
+
+                    <input
+                        type="text"
+                        id="fullName"
+                        placeholder="Enter your full name"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="input-group">
+
+                    <label for="createUsername">
+                        USERNAME / EMAIL
+                    </label>
+
+                    <input
+                        type="text"
+                        id="createUsername"
+                        placeholder="Create a username"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="input-group">
+
+                    <label for="createPassword">
+                        PASSWORD
+                    </label>
+
+                    <input
+                        type="password"
+                        id="createPassword"
+                        placeholder="Create a password"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="input-group">
+
+                    <label for="confirmPassword">
+                        CONFIRM PASSWORD
+                    </label>
+
+                    <input
+                        type="password"
+                        id="confirmPassword"
+                        placeholder="Confirm your password"
+                        required
+                    >
+
+                </div>
+
+
+                <button
+                    type="submit"
+                    class="main-btn"
+                >
+                    CREATE ACCOUNT
+                </button>
+
+            </form>
+
+
+            <div
+                id="createError"
+                class="message error"
+            ></div>
+
+
+            <div
+                id="createSuccess"
+                class="message success"
+            ></div>
+
+
+            <div class="switch">
+
+                Already have an account?
+
+                <button
+                    type="button"
+                    onclick="showLogin()"
+                >
+                    Login
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <div class="footer">
+
+            SIH INDUSTRIAL EDITION<br>
+
+            <span>Authorized Personnel Only</span>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<script>
+
+    /*
+     ============================================================
+     COAL-GUARD AI
+     LOGIN + CREATE ACCOUNT
+     ============================================================
+    */
+
+
+    /*
+     * Your existing Coal-Guard website
+     */
+
+    const COAL_GUARD_URL =
+        "https://sejxll.github.io/coalmine-safety/";
+
+
+    /*
+     * Default administrator account
+     *
+     * You can change these.
+     */
+
+    const ADMIN_USERNAME = "admin";
+
+    const ADMIN_PASSWORD = "admin123";
+
+
+
+    /* ==========================================================
+       SWITCH TO CREATE ACCOUNT
+       ========================================================== */
+
+    function showCreateAccount() {
+
+        document
+            .getElementById("loginSection")
+            .classList.add("hidden");
+
+        document
+            .getElementById("createSection")
+            .classList.remove("hidden");
+
+        clearMessages();
+    }
+
+
+
+    /* ==========================================================
+       SWITCH TO LOGIN
+       ========================================================== */
+
+    function showLogin() {
+
+        document
+            .getElementById("createSection")
+            .classList.add("hidden");
+
+        document
+            .getElementById("loginSection")
+            .classList.remove("hidden");
+
+        clearMessages();
+    }
+
+
+
+    /* ==========================================================
+       CLEAR MESSAGES
+       ========================================================== */
+
+    function clearMessages() {
+
+        document.getElementById("loginError")
+            .style.display = "none";
+
+        document.getElementById("createError")
+            .style.display = "none";
+
+        document.getElementById("createSuccess")
+            .style.display = "none";
+
+    }
+
+
+
+    /* ==========================================================
+       CREATE ACCOUNT
+       ========================================================== */
+
+    document
+        .getElementById("createForm")
+        .addEventListener("submit", function(event) {
+
+            event.preventDefault();
+
+
+            const name =
+                document
+                    .getElementById("fullName")
+                    .value
+                    .trim();
+
+
+            const username =
+                document
+                    .getElementById("createUsername")
+                    .value
+                    .trim();
+
+
+            const password =
+                document
+                    .getElementById("createPassword")
+                    .value;
+
+
+            const confirmPassword =
+                document
+                    .getElementById("confirmPassword")
+                    .value;
+
+
+            const error =
+                document.getElementById("createError");
+
+
+            const success =
+                document.getElementById("createSuccess");
+
+
+            error.style.display = "none";
+
+            success.style.display = "none";
+
+
+
+            /*
+             * Check password length
+             */
+
+            if (password.length < 6) {
+
+                error.textContent =
+                    "Password must contain at least 6 characters.";
+
+                error.style.display = "block";
+
+                return;
+            }
+
+
+
+            /*
+             * Check passwords
+             */
+
+            if (password !== confirmPassword) {
+
+                error.textContent =
+                    "Passwords do not match.";
+
+                error.style.display = "block";
+
+                return;
+            }
+
+
+
+            /*
+             * Check whether account already exists
+             */
+
+            const existingAccount =
+                localStorage.getItem(
+                    "coalGuardAccount"
+                );
+
+
+            if (existingAccount) {
+
+                const account =
+                    JSON.parse(existingAccount);
+
+
+                if (
+                    account.username.toLowerCase() ===
+                    username.toLowerCase()
+                ) {
+
+                    error.textContent =
+                        "This account already exists.";
+
+                    error.style.display = "block";
+
+                    return;
+                }
+            }
+
+
+
+            /*
+             * Save account
+             */
+
+            const account = {
+
+                name: name,
+
+                username: username,
+
+                password: password
+
+            };
+
+
+            localStorage.setItem(
+                "coalGuardAccount",
+                JSON.stringify(account)
+            );
+
+
+
+            /*
+             * Show success
+             */
+
+            success.textContent =
+                "Account created successfully! You can now login.";
+
+            success.style.display = "block";
+
+
+            /*
+             * Clear form
+             */
+
+            document
+                .getElementById("createForm")
+                .reset();
+
+
+            /*
+             * Automatically return to login
+             */
+
+            setTimeout(function() {
+
+                showLogin();
+
+            }, 1500);
+
+        });
+
+
+
+    /* ==========================================================
+       LOGIN
+       ========================================================== */
+
+    document
+        .getElementById("loginForm")
+        .addEventListener("submit", function(event) {
+
+            event.preventDefault();
+
+
+            const username =
+                document
+                    .getElementById("loginUsername")
+                    .value
+                    .trim();
+
+
+            const password =
+                document
+                    .getElementById("loginPassword")
+                    .value;
+
+
+            const error =
+                document.getElementById("loginError");
+
+
+            const loading =
+                document.getElementById("loginLoading");
+
+
+            error.style.display = "none";
+
+
+
+            /*
+             * Check ADMIN account
+             */
+
+            let validLogin = false;
+
+
+            if (
+                username === ADMIN_USERNAME &&
+                password === ADMIN_PASSWORD
+            ) {
+
+                validLogin = true;
+
+            }
+
+
+            /*
+             * Check created account
+             */
+
+            const savedAccount =
+                localStorage.getItem(
+                    "coalGuardAccount"
+                );
+
+
+            if (savedAccount) {
+
+                const account =
+                    JSON.parse(savedAccount);
+
+
+                if (
+                    account.username.toLowerCase() ===
+                    username.toLowerCase() &&
+                    account.password === password
+                ) {
+
+                    validLogin = true;
+
+                }
+
+            }
+
+
+
+            /*
+             * LOGIN SUCCESS
+             */
+
+            if (validLogin) {
+
+                loading.style.display = "block";
+
+
+                /*
+                 * Redirect to Coal-Guard
+                 */
+
+                setTimeout(function() {
+
+                    window.location.href =
+                        COAL_GUARD_URL;
+
+                }, 500);
+
+            }
+
+
+            /*
+             * LOGIN FAILED
+             */
+
+            else {
+
+                error.textContent =
+                    "Invalid username or password.";
+
+                error.style.display = "block";
+
+            }
+
+        });
+
+</script>
+
+</body>
+</html>
+```
