@@ -229,15 +229,15 @@
 
         <!-- LOGIN FORM -->
         <div id="loginSection">
-            <form id="loginForm">
+            <form id="loginForm" autocomplete="off">
                 <div class="input-group">
                     <label for="loginUsername">USERNAME / EMAIL</label>
-                    <input type="text" id="loginUsername" placeholder="Enter your username" required>
+                    <input type="text" id="loginUsername" placeholder="Enter your username" required autocomplete="off">
                 </div>
 
                 <div class="input-group">
                     <label for="loginPassword">PASSWORD</label>
-                    <input type="password" id="loginPassword" placeholder="Enter your password" required>
+                    <input type="password" id="loginPassword" placeholder="Enter your password" required autocomplete="new-password">
                 </div>
 
                 <button type="submit" class="main-btn">SECURE LOGIN</button>
@@ -254,25 +254,25 @@
 
         <!-- CREATE ACCOUNT FORM -->
         <div id="createSection" class="hidden">
-            <form id="createForm">
+            <form id="createForm" autocomplete="off">
                 <div class="input-group">
                     <label for="fullName">FULL NAME</label>
-                    <input type="text" id="fullName" placeholder="Enter your full name" required>
+                    <input type="text" id="fullName" placeholder="Enter your full name" required autocomplete="off">
                 </div>
 
                 <div class="input-group">
                     <label for="createUsername">USERNAME / EMAIL</label>
-                    <input type="text" id="createUsername" placeholder="Create a username" required>
+                    <input type="text" id="createUsername" placeholder="Create a username" required autocomplete="off">
                 </div>
 
                 <div class="input-group">
                     <label for="createPassword">PASSWORD</label>
-                    <input type="password" id="createPassword" placeholder="Create a password" required>
+                    <input type="password" id="createPassword" placeholder="Create a password" required autocomplete="new-password">
                 </div>
 
                 <div class="input-group">
                     <label for="confirmPassword">CONFIRM PASSWORD</label>
-                    <input type="password" id="confirmPassword" placeholder="Confirm your password" required>
+                    <input type="password" id="confirmPassword" placeholder="Confirm your password" required autocomplete="new-password">
                 </div>
 
                 <button type="submit" class="main-btn">CREATE ACCOUNT</button>
@@ -299,6 +299,13 @@
     const ADMIN_USERNAME = "admin";
     const ADMIN_PASSWORD = "admin123";
 
+    // Enforce direct return to login page state on page load/refresh
+    window.addEventListener("DOMContentLoaded", function() {
+        showLogin();
+        document.getElementById("loginForm").reset();
+        document.getElementById("createForm").reset();
+    });
+
     function showCreateAccount() {
         document.getElementById("loginSection").classList.add("hidden");
         document.getElementById("createSection").classList.remove("hidden");
@@ -315,6 +322,7 @@
         document.getElementById("loginError").style.display = "none";
         document.getElementById("createError").style.display = "none";
         document.getElementById("createSuccess").style.display = "none";
+        document.getElementById("loginLoading").style.display = "none";
     }
 
     document.getElementById("createForm").addEventListener("submit", function(event) {
